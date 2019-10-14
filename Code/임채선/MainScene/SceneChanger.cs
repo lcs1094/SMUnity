@@ -7,5 +7,8 @@ public class SceneChanger : MonoBehaviour
 {
     public void LoadGame() => SceneManager.LoadScene("catjump");
 
-    public void Quit() => Application.Quit();
+    public void Quit(){
+        PlayerPrefs.DeleteAll();
+        Application.Quit();
+    }
 }
