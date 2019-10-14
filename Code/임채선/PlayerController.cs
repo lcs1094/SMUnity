@@ -5,10 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rigid2D;
-    float jumpForce = 780.0f;
+    float jumpForce = 880.0f;
     int jumpcount = 0;
     bool isground = true;
-    bool ismoved = false;
     float speed = 3.0f;
     float move;
 
@@ -19,19 +18,18 @@ public class PlayerController : MonoBehaviour
         Vector3 moveVelocity = Vector3.zero;
         if(Input.GetAxisRaw("Horizontal") < 0){
             moveVelocity = Vector3.left;
-            transform.localScale = new Vector3(-1,1,1);
+            transform.localScale = new Vector3(-1,1,1); // 왼쪽 이동 시 이미지 반전
         }
         else if(Input.GetAxisRaw("Horizontal") > 0){
             moveVelocity = Vector3.right;
             transform.localScale = new Vector3(1,1,1);
         }
-        transform.position += moveVelocity * speed * Time.deltaTime;
+        transform.position += moveVelocity * speed * Time.deltaTime;    // 플레이어의 좌표를 이동
     }
     void OnCollisionEnter2D(Collision2D col){
-        if(col.transform.name == "boxcloud" || col.transform.name == "bottomcloud"){
+        if(col.transform.tag == "boxcloud" || col.transform.name == "bottomcloud"){ // 충돌 시 
             isground = true;
             jumpcount = 0;
-            ismoved = false;
         }
     }
     
@@ -42,7 +40,6 @@ public class PlayerController : MonoBehaviour
         this.rigid2D = GetComponent<Rigidbody2D>();
         jumpcount = 0;
         isground = true;
-        ismoved = false;
     }
 
     // Update is called once per frame
